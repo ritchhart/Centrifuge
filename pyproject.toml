@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "centrifuge"
+version = "0.1.0"
+description = "Mixed Python/C++ example package with a shared library"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [ { name = "Your Name" } ]
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: C++",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: POSIX :: Linux"
+]
+
+[project.urls]
+Source = ""
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["centrifuge*"]
+
+[tool.setuptools.package-data]
+"centrifuge" = ["*.*"]
+include-package-data = true
