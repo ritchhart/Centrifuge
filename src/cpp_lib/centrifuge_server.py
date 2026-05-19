@@ -21,6 +21,16 @@ import traceback
 
 assert struct.calcsize('P') * 8 == 32, "Must use 32-bit Python!"
 
+_original_translate = wx.lib.activex.ActiveXCtrl.MSWTranslateMessage
+
+def _patched_translate(self, msg):
+    try:
+        return _original_translate(self, msg)
+    except (ctypes.ArgumentError, TypeError):
+        return False  # Message not handled — let wx process it normally
+
+wx.lib.activex.ActiveXCtrl.MSWTranslateMessage = _patched_translate
+
 # ── Configuration ──
 ACTIVEX_DIR = r"C:\Program Files (x86)\Agilent Technologies\VWorks ActiveX Controls"
 CENTRIFUGE_DLL = ACTIVEX_DIR + r"\AgilentCentrifuge.dll"
@@ -31,6 +41,7 @@ LOADER_CLSID = '{A0E5DD8C-EBAB-414D-88C2-2578FD43B6B5}'
 
 SERVER_HOST = '127.0.0.1'
 SERVER_PORT = 5555
+
 
 
 # ══════════════════════════════════════════════════════════
